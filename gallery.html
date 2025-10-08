@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전시관</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #4285f4;
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+        .exhibit {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .exhibit:hover {
+            transform: translateY(-5px);
+        }
+        .exhibit img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            background-color: #fff;
+        }
+        .exhibit-info {
+            padding: 1rem;
+        }
+        .exhibit h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .exhibit p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .back-btn {
+            display: inline-block;
+            margin: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #f1f1f1;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .back-btn:hover {
+            background-color: #ddd;
+        }
+        .exhibit {
+            cursor: pointer;
+        }
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-content {
+            max-width: 80%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+        .modal-info {
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+            max-width: 80%;
+        }
+        .modal-info h2 {
+            margin: 0.5rem 0;
+        }
+        .modal-info p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>전시관</h1>
+    </header>
+    <a href="index.html" class="back-btn">← 홈으로 돌아가기</a>
+    <div class="container">
+        <div class="gallery">
+            <div class="exhibit">
+                <img src="PKM1.png" alt="전시품 1">
+                <div class="exhibit-info">
+                    <h3>관라파덕</h3>
+                    <p>이 작품은 끊임없이 생각하는 현대인의 고뇌를 담고 있습니다. 머리를 감싸 쥐고 있는 고라파덕의 모습과 관람객의 얼굴이 합쳐져 골치 아픈 생각에서 벗어나지 못하는 상황을 익살스럽게 표현하고 있습니다. 고뇌가 곧 강한 초능력의 원천이 되듯, 혼란 속에서도 잠재력을 엿볼 수 있습니다. </p>
+                </div>
+            </div>
+            <div class="exhibit">
+                <img src="PKM2.png" alt="전시품 2">
+                <div class="exhibit-info">
+                    <h3>관도킹</h3>
+                    <p>이 작품은 느긋함 속에서 우러나오는 통찰력을 나타냅니다. 뼈 모양의 왕관이 씌워진 관람객의 얼굴은 슬로우킹의 상징인 지혜와 느긋함을 동시에 보여주며, 깊은 생각에 잠긴 듯한 표정은 곧 깨달음에 도달할 것만 같은 분위기를 자아냅니다.</p>
+                </div>
+            </div>
+            <div class="exhibit">
+                <img src="PKM3.png" alt="전시품 3">
+                <div class="exhibit-info">
+                    <h3>관츠</h3>
+                    <p>이 작품은 압도적인 힘과 궁극적인 존재감을 상징합니다. 강력한 염력을 사용하는 포켓몬인 뮤츠의 역동적인 자세 위에 관람객의 얼굴을 대입함으로써, 내면의 힘을 외부로 발산하려는 의지와 범접할 수 없는 카리스마를 표현합니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 이미지 모달 -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-info" id="modalInfo">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    <script>
+        // 모달 요소 가져오기
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeBtn = document.querySelector('.close');
+        
+        // 모든 전시품 div에 클릭 이벤트 추가
+        const exhibits = document.querySelectorAll('.exhibit');
+        exhibits.forEach(exhibit => {
+            exhibit.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                const title = this.querySelector('h3').textContent;
+                const description = this.querySelector('p').textContent;
+                
+                modal.classList.add('active');
+                modalImg.src = img.src;
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+            });
+        });
+        
+        // 닫기 버튼 클릭
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+        
+        // 모달 배경 클릭시 닫기
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
