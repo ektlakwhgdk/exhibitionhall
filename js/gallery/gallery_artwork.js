@@ -16,12 +16,9 @@ function renderGallery() {
         const exhibitDiv = document.createElement('div');
         exhibitDiv.className = 'exhibit';
         
-        // 갤러리 페이지는 gallery/ 폴더에 있으므로 상대 경로 조정
-        const imagePath = '../' + artwork.image;
-        
         // 작품 정보를 HTML로 구성
         exhibitDiv.innerHTML = `
-            <img src="${imagePath}" alt="${artwork.alt}">
+            <img src="${artwork.image}" alt="${artwork.alt}">
             <div class="exhibit-info">
                 <h3>${artwork.title}</h3>
                 <p>${artwork.description}</p>
