@@ -1,0 +1,202 @@
+/* ========================================
+   기본 스타일
+   ======================================== */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #4285f4;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* ========================================
+   갤러리 레이아웃
+   ======================================== */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+/* ========================================
+   전시품 카드
+   ======================================== */
+.exhibit {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.exhibit:hover {
+    transform: translateY(-5px);
+}
+
+.exhibit img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    background-color: #fff;
+}
+
+.exhibit-info {
+    padding: 1rem;
+}
+
+.exhibit h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.exhibit p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   뒤로가기 버튼
+   ======================================== */
+.back-btn {
+    display: inline-block;
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #f1f1f1;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #ddd;
+}
+
+/* ========================================
+   모달 (상세보기)
+   ======================================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content {
+    max-width: 80%;
+    max-height: 70%;
+    object-fit: contain;
+}
+
+.modal-info {
+    color: white;
+    text-align: center;
+    margin-top: 1rem;
+    max-width: 80%;
+}
+
+.modal-info h2 {
+    margin: 0.5rem 0;
+}
+
+.modal-info p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #bbb;
+}
+
+/* ========================================
+   볼륨 컨트롤
+   ======================================== */
+.volume-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
+    border-radius: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+.volume-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s;
+}
+
+.volume-btn:hover {
+    transform: scale(1.1);
+}
+
+.volume-slider {
+    width: 100px;
+    height: 5px;
+    background: #ddd;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #4285f4;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #4285f4;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
