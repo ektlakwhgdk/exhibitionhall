@@ -11,6 +11,9 @@
 function renderGallery() {
     const gallery = document.querySelector('.gallery');
     
+    // 현재 페이지의 경로를 기준으로 이미지 경로 결정
+    const basePath = window.location.pathname.includes('/gallery/') ? '../' : '';
+    
     // 각 작품을 순회하며 전시품 요소 생성
     artworks.forEach(artwork => {
         const exhibitDiv = document.createElement('div');
@@ -18,7 +21,7 @@ function renderGallery() {
         
         // 작품 정보를 HTML로 구성
         exhibitDiv.innerHTML = `
-            <img src="${artwork.image}" alt="${artwork.alt}">
+            <img src="${basePath}${artwork.image}" alt="${artwork.alt}">
             <div class="exhibit-info">
                 <h3>${artwork.title}</h3>
                 <p>${artwork.description}</p>
